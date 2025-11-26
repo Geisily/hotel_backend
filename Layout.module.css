@@ -1,0 +1,13 @@
+.container{display:flex;min-height:100vh}
+.sidebar{width:220px;background:linear-gradient(180deg,var(--primary-start),var(--primary-end));color:#fff;padding:20px}
+.brand{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.logo{width:36px;height:36px;background:rgba(255,255,255,0.15);border-radius:8px}
+.sidebar nav{display:flex;flex-direction:column;gap:8px}
+.sidebar a{color:rgba(255,255,255,0.9);text-decoration:none;padding:8px;border-radius:6px}
+.active{background:rgba(255,255,255,0.12)}
+.main{flex:1;display:flex;flex-direction:column}
+.header{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:linear-gradient(90deg,rgba(255,255,255,0.03),transparent)}
+.headerRight{display:flex;align-items:center;gap:12px}
+.user{background:#fff;color:var(--text);padding:6px 10px;border-radius:20px}
+.logout{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer}
+.content{padding:20px}
