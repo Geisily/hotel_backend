@@ -11,13 +11,16 @@ export function AuthProvider({children}){
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  // 1. Efeito para verificar token na inicialização
   useEffect(()=>{
     // verify token by pinging a protected endpoint (if available)
     let mounted = true
     async function verify(){
+      // Se não houver token, marca como carregado e sai
       if(!token){ if(mounted) setLoading(false); return }
+
       try{
-        // try to fetch current user from a protected endpoint
+        // Tenta buscar usuário atual (rota protegida)
         const res = await api.get('/auth/me')
         const u = res?.data?.user || res?.data || JSON.parse(localStorage.getItem('user') || 'null')
         if(mounted){
@@ -25,7 +28,7 @@ export function AuthProvider({children}){
           setLoading(false)
         }
       }catch(err){
-        // token invalid or endpoint not available -> logout
+        // Token inválido ou erro -> desloga
         if(mounted) logout()
       }
     }
@@ -33,6 +36,18 @@ export function AuthProvider({children}){
     return ()=>{ mounted = false }
   }, [])
 
+  // 2. Efeito para configurar o Header de Autorização do Axios (CORREÇÃO CRÍTICA)
+  useEffect(()=>{
+    if(token){
+      // Adiciona o token no formato Bearer ao cabeçalho de todas as requisições
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    }else{
+      // Remove o token se o usuário deslogar
+      delete api.defaults.headers.common['Authorization']
+    }
+  }, [token]) // Executa sempre que o token muda (login ou logout)
+
+  // 3. Efeito para escutar evento de logout externo
   useEffect(()=>{
     function handleLogoutEvent(){
       logout()
@@ -41,6 +56,7 @@ export function AuthProvider({children}){
     return ()=> window.removeEventListener('auth:logout', handleLogoutEvent)
   }, [])
 
+  // Função de login
   async function login({email, password}){
     setLoading(true)
     setError(null)
@@ -63,13 +79,14 @@ export function AuthProvider({children}){
     }
   }
 
+  // Função de logout (CORREÇÃO: Removido window.location.href)
   function logout(){
     setUser(null)
     setToken(null)
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    // redirect to login
-    window.location.href = '/login'
+    // O redirecionamento é tratado pelo ProtectedRoute ao ver que user é null.
+    // window.location.href = '/login' (REMOVIDO)
   }
 
   return (
