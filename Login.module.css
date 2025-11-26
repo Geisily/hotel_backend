@@ -1,0 +1,4 @@
+.wrapper{display:flex;align-items:center;justify-content:center;height:100vh;background:linear-gradient(180deg,var(--primary-start),var(--primary-end));}
+.box{background:#fff;padding:24px;border-radius:8px;min-width:320px;color:var(--text)}
+.btn{margin-top:12px;padding:8px 12px;border-radius:6px;background:linear-gradient(90deg,var(--primary-start),var(--primary-end));color:#fff;border:none;width:100%;}
+.error{background:#fee;color:#c33;padding:8px;border-radius:6px;margin-bottom:8px}
