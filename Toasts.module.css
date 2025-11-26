@@ -1,0 +1,6 @@
+.toastsContainer{position:fixed;right:16px;top:16px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{min-width:220px;padding:10px 12px;border-radius:8px;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
+.info{background:linear-gradient(90deg,var(--primary-start),var(--primary-end))}
+.success{background:#28a745}
+.error{background:#c33}
+.close{margin-left:8px;background:transparent;border:none;color:#fff;cursor:pointer}
